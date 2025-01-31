@@ -37,7 +37,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 }
 func main() {
-	http.HandleFunc("/user", User)
+	http.HandleFunc("/", User)
 
 	http.ListenAndServe(":8000", nil)
 }
