@@ -2,8 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
+
+	numbersapi "github.com/ezrahel/NumbersAPI"
 )
 
 type Detail struct {
@@ -37,7 +40,18 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 }
 func main() {
-	http.HandleFunc("/", User)
+	// numbersapi.GetNumberFact(52)
+	// chek := numbersapi.NumCheck(6)
+	// fmt.Println(chek)
+	// http.HandleFunc("/", User)
 
+	// http.ListenAndServe(":8000", nil)
+	// fmt.Println("Start")
+	// numbersapi.ApiCheck(80)
+
+	fmt.Println("Starting Server at port 8000:")
+	// odd := numbersapi.IsOdd(1060)
+	// fmt.Printf("odd?: %v", odd)
+	http.HandleFunc("/api/clarify-number", numbersapi.NumberHandler)
 	http.ListenAndServe(":8000", nil)
 }
