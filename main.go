@@ -52,6 +52,6 @@ func main() {
 	fmt.Println("Starting Server at port 8000:")
 	// odd := numbersapi.IsOdd(1060)
 	// fmt.Printf("odd?: %v", odd)
-	http.HandleFunc("/api/clarify-number", numbersapi.NumberHandler)
+	http.HandleFunc("/api/classify-number", numbersapi.NumberHandler)
 	http.ListenAndServe(":8000", nil)
 }

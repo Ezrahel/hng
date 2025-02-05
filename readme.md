@@ -1,99 +1,109 @@
-# Go API - User Details with CORS Support
+Number Facts API
 
-This is a simple Go API that provides user details in JSON format. The API includes basic CORS (Cross-Origin Resource Sharing) support, allowing it to be accessed from different domains. It dynamically generates the current date and time in ISO 8601 (UTC) format.
+This Go package allows you to fetch number facts and classify a given number based on properties such as being prime, perfect, Armstrong, even, and odd. It integrates with the NumbersAPI service and provides a detailed JSON response with various facts about the number.
+Features
 
-## Features
+    Fetches math-related facts about a given number using the NumbersAPI.
+    Classifies numbers based on various properties, including:
+        Whether the number is prime.
+        Whether the number is perfect.
+        Whether the number is an Armstrong number.
+        Whether the number is even or odd.
+    Calculates the digit sum and returns it along with the facts.
+    Returns a structured response in JSON format.
 
-- Returns user details including:
-  - Email address
-  - Current date and time in ISO 8601 format (UTC)
-  - GitHub link
-- Handles CORS (Cross-Origin Resource Sharing), allowing it to be used across different domains.
-- Supports pre-flight requests (`OPTIONS` method) for cross-origin HTTP requests.
-- Implements dynamic date generation for the `current_datetime` field.
+API Endpoint
+GET /api/classify-number?number=<number>
 
-## API Endpoint
+This endpoint allows you to classify a number and fetch its facts. It requires a query parameter number, which is the number to classify.
+Example Request
 
-### `GET /user`
+GET http://localhost:8080/api/classify-number?number=371
 
-- **Description**: Returns the user details in JSON format with the current UTC date and time in ISO 8601 format.
-- **Response**: JSON object containing the user's email, GitHub link, and the current date-time.
+Example Response (JSON)
 
-### Example Response:
-
-```json
 {
-  "email": "adelakinisrael024@gmail.com",
-  "current_datetime": "2025-01-30T15:04:05Z",
-  "github_link": "https://github.com/ezrahel/hng-one"
+    "number": 371,
+    "is_prime": false,
+    "is_perfect": false,
+    "propertise": ["Armstrong", "odd"],
+    "digit_sum": 3,
+    "fun_fact": "371 is the sum of cubes of its digits"
 }
-```
 
-### CORS Headers:
+Functions
+NumCheck(ArmstrongNum int) []string
 
-- `Access-Control-Allow-Origin`: Allows requests from any origin (set to `*` for this example, but should be restricted in production).
-- `Access-Control-Allow-Methods`: Specifies allowed methods for cross-origin requests (GET, POST).
-- `Access-Control-Allow-Headers`: Allows custom headers like `Content-Type`.
+Classifies a number into properties like "Armstrong", "even", "odd" based on the number provided.
 
-## Prerequisites
+    Armstrong Number: A number that is equal to the sum of its own digits raised to the power of the number of digits.
+    Even/Odd: Checks whether the number is even or odd.
 
-- [Go](https://golang.org/dl/) installed (version 1.15 or higher).
-- A terminal/command prompt to run the API.
+IsOdd(isOdd int) string
 
-## Installation and Running the API
+Returns whether a number is "odd" or "even".
+IsPerfect(isPerfect int) bool
 
-1. Clone this repository:
+Checks if the given number is a perfect number. A perfect number is a positive integer that is equal to the sum of its proper divisors, excluding the number itself.
+IsPrime(isPrime int) bool
 
-   ```bash
-   git clone https://github.com/yourusername/go-api-user-details.git
-   cd go-api-user-details
-   ```
+Determines whether a given number is prime. A prime number is a natural number greater than 1 that cannot be formed by multiplying two smaller natural numbers.
+ApiCheck(number int) (NumberFactResponse, error)
 
-2. Run the Go application:
+Fetches a fun fact for the given number from the NumbersAPI service. It returns a NumberFactResponse struct containing the number fact.
+NumberHandler(w http.ResponseWriter, r *http.Request)
 
-   ```bash
-   go run main.go
-   ```
+HTTP handler for the /api/classify-number endpoint. It extracts the number query parameter from the request, calls relevant classification functions, fetches a number fact, and returns a structured JSON response with the classification and number facts.
+How to Run the Project
+Prerequisites
 
-3. The API will start and listen on port `8080`. You should see the following message:
+    Go (1.16+)
+    An active internet connection (to fetch number facts from NumbersAPI).
 
-   ```
-   Server is listening on port 8000...
-   ```
+Steps
 
-4. To test the API, open your browser or use `curl`:
+- Clone the repository:
 
-   ```bash
-   curl http://localhost:8000
-   ```
+``` ```bash
+      git clone https://github.com/ezrahel/hng.
+      cd hng``` ``` 
 
-   Example response:
+- Install dependencies:
 
-   ```json
-   {
-     "email": "adelakinisrael024@gmail.com",
-     "current_datetime": "2025-01-30T15:04:05Z",
-     "github_link": "https://github.com/ezrahel/hng"
-   }
-   ```
+      go mod tidy
 
-## Handling CORS
+- Run the Go server:
 
-This API includes basic CORS support:
+      go run main.go
 
-- The `Access-Control-Allow-Origin` header allows the API to accept requests from any origin (currently set to `*`).
+The server will start listening on port 8000.
+
+- Test the API by visiting:
+
+      http://localhost:8080/api/classify-number?number=371
+
+      You can replace 371 with any other number to classify.
+
+# Example Test
+
+You can test the functionality using curl or Postman to make GET requests.
+
+go
+curl "http://localhost:8080/api/classify-number?number=371"
 
 
-If you are making requests from a frontend application on a different domain, CORS headers will allow the browser to successfully make the request.
+The server will respond with a JSON object containing the classification of the number, such as whether it is prime, perfect, Armstrong, etc.
+Code Structure
 
-## Backlink
-- https://hng.tech/hire/golang-developers
-## License
+    NumCheck(): Classifies the number based on Armstrong and even/odd properties.
+    IsOdd(): Returns "odd" or "even".
+    IsPerfect(): Determines if the number is perfect.
+    IsPrime(): Checks if the number is prime.
+    ApiCheck(): Fetches a fun fact about the number from NumbersAPI.
+    NumberHandler(): HTTP handler to classify numbers and serve the facts as a JSON response.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Notes
 
----
+    The NumbersAPI URL used here is a public API and may have rate limits. If you're planning to use this in a production environment, be sure to check the NumbersAPI documentation for any usage limitations.
+    The code uses Go's built-in http and json packages to handle API requests and responses.
 
-Feel free to replace any placeholders (like the GitHub repository URL) with actual values. This `README` should help users understand how to install, run, and use the API, along with the key features and functionality.
-
-Let me know if you need any changes!
