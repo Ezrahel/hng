@@ -103,16 +103,7 @@ func ApiCheck(number int) (NumberFactResponse, error) {
 func NumberHandler(w http.ResponseWriter, r *http.Request) {
 	numberInput := r.URL.Query().Get("number")
 	if numberInput == "" {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		errorResponse := map[string]interface{}{
-			"number": "alphabet",
-			"error":  true,
-		}
-		err := json.NewEncoder(w).Encode(errorResponse)
-		if err != nil {
-			http.Error(w, "Invalid number input", http.StatusInternalServerError)
-		}
+		http.Error(w, "Missing 'number' parameter", http.StatusBadRequest)
 		return
 	}
 	number, err := strconv.Atoi(numberInput)
