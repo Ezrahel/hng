@@ -16,7 +16,7 @@ type NumberFactResponse struct {
 	Numbers    int      `json:"number"`
 	IsPrimes   bool     `json:"is_prime"`
 	IsPerfects bool     `json:"is_perfect"`
-	Propertise []string `json:"propertise"`
+	Properties []string `json:"propertise"`
 	DigitSums  int      `json:"digit_sum"`
 	// IsOdds     string   `json:"is_odd"`
 	FunFacts string `json:"fun_fact"`
@@ -32,7 +32,7 @@ func NumCheck(ArmstrongNum int) []string {
 		total += int(math.Pow(float64(toDigit), float64(totalLen)))
 	}
 	if total == ArmstrongNum {
-		prop = append(prop, "Armstrong")
+		prop = append(prop, "armstrong")
 	}
 	if ArmstrongNum%2 == 0 {
 		prop = append(prop, "even")
@@ -144,7 +144,7 @@ func NumberHandler(w http.ResponseWriter, r *http.Request) {
 		IsPerfects: isPerfect,
 		IsPrimes:   isPrime,
 		// IsOdds:     isOdd,
-		Propertise: numCheck,
+		Properties: numCheck,
 		DigitSums:  totalLen,
 		FunFacts:   string(GetApi),
 	}
