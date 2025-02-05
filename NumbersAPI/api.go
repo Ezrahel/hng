@@ -16,7 +16,7 @@ type NumberFactResponse struct {
 	Numbers    int      `json:"number"`
 	IsPrimes   bool     `json:"is_prime"`
 	IsPerfects bool     `json:"is_perfect"`
-	Properties []string `json:"propertise"`
+	Properties []string `json:"properties"`
 	DigitSums  int      `json:"digit_sum"`
 	// IsOdds     string   `json:"is_odd"`
 	FunFacts string `json:"fun_fact"`

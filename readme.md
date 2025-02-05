@@ -26,7 +26,7 @@ Example Response (JSON)
     "number": 371,
     "is_prime": false,
     "is_perfect": false,
-    "propertise": ["Armstrong", "odd"],
+    "properties": ["Armstrong", "odd"],
     "digit_sum": 3,
     "fun_fact": "371 is the sum of cubes of its digits"
 }
